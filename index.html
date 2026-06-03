@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VETO CASH — Earn Real Money</title>
+
+<!-- ✅ Favicon SVG مدمج (يعمل دائماً بدون إنترنت) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300FF9D'/%3E%3Cstop offset='100%25' stop-color='%2300C77A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='52' font-weight='900' fill='%230B0F19'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300FF9D'/%3E%3Cstop offset='100%25' stop-color='%2300C77A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='52' font-weight='900' fill='%230B0F19'%3EV%3C/text%3E%3C/svg%3E">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cairo@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.0/index.css">
+<style>
+  :root{--bg:#0B0F19;--stroke:rgba(255,255,255,0.08);--neon:#00FF9D;--gold:#FFD24A;--pink:#FF4D9D;--blue:#3B82F6;}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;}
+  body{background:var(--bg);color:#E5E7EB;overflow-x:hidden;min-height:100vh;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .neon{color:var(--neon);} .gold{color:var(--gold);} .pink{color:var(--pink);}
+  .glass{background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01));border:1px solid var(--stroke);backdrop-filter:blur(12px);}
+  .glow-neon{box-shadow:0 0 40px rgba(0,255,157,0.12);}
+  .radial-bg{background:radial-gradient(ellipse at top right,rgba(0,255,157,0.08),transparent 50%),radial-gradient(ellipse at bottom left,rgba(255,77,157,0.05),transparent 50%),var(--bg);}
+  .bg-grid{background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;}
+  .pulse-dot{animation:pulse 2s infinite;} @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .scroll-ticker{animation:scrollX 30s linear infinite;} @keyframes scrollX{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .fade-in{animation:fadeIn .4s ease forwards;} @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .badge{font-size:10px;padding:2px 8px;border-radius:999px;font-weight:600;letter-spacing:.5px;}
+  .btn-neon{background:linear-gradient(135deg,#00FF9D,#00C77A);color:#000;font-weight:800;box-shadow:0 10px 30px rgba(0,255,157,0.25);transition:all .2s;border:none;cursor:pointer;}
+  .btn-neon:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(0,255,157,0.4);}
+  .btn-outline-neon{border:1px solid rgba(0,255,157,0.4);color:var(--neon);transition:all .2s;background:transparent;cursor:pointer;}
+  .btn-outline-neon:hover{background:rgba(0,255,157,0.1);}
+  .offer-card{transition:all .25s ease;} .offer-card:hover{transform:translateY(-4px);border-color:rgba(0,255,157,0.4);}
+  .view{display:none;} .view.active{display:block;animation:fadeIn .4s ease;}
+  .avatar-circle{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00FF9D,#00C77A);display:flex;align-items:center;justify-content:center;color:#000;font-weight:800;font-size:14px;overflow:hidden;flex-shrink:0;}
+  .avatar-circle img{width:100%;height:100%;object-fit:cover;}
+  .proof-img{width:100%;height:180px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.08);}
+
+  /* ✅ SVG Logo Component Style */
+  .veto-logo-svg{display:block;}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .modal-overlay.active{display:flex;}
+  .modal-box{width:100%;max-width:440px;background:linear-gradient(180deg,#151b2e,#0b0f19);border:1px solid rgba(0,255,157,0.2);border-radius:24px;padding:32px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6);animation:slideUp .3s cubic-bezier(.2,.9,.3,1);}
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .modal-close{position:absolute;top:14px;left:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:white;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
+  .modal-tabs{display:flex;background:rgba(0,0,0,0.3);border-radius:12px;padding:4px;margin-bottom:20px;}
+  .modal-tab{flex:1;padding:10px;text-align:center;border-radius:9px;cursor:pointer;font-weight:700;font-size:13px;color:rgba(255,255,255,0.6);transition:all .2s;}
+  .modal-tab.active{background:rgba(0,255,157,0.15);color:var(--neon);}
+  .input-field{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.35);color:white;font-family:inherit;font-size:14px;outline:none;transition:all .2s;}
+  .input-field:focus{border-color:var(--neon);}
+  .input-field::placeholder{color:rgba(255,255,255,0.3);}
+  .btn-google{width:100%;padding:12px;border-radius:12px;background:#fff;color:#1f2937;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;border:none;}
+  .btn-google:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,0.3);}
+  .divider{display:flex;align-items:center;margin:20px 0;color:rgba(255,255,255,0.4);font-size:11px;}
+  .divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.1);}
+  .divider::before{margin-left:10px;} .divider::after{margin-right:10px;}
+  .alert-msg{padding:10px 12px;border-radius:10px;font-size:12px;margin-bottom:14px;display:none;line-height:1.6;}
+  .alert-error{background:rgba(255,69,58,0.15);border:1px solid rgba(255,69,58,0.3);color:#ffb3af;}
+  .alert-info{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);color:#93c5fd;}
+  ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:#0B0F19;} ::-webkit-scrollbar-thumb{background:#1f2937;border-radius:4px;}
+</style>
+</head>
+<body class="radial-bg">
+
+<!-- ✅ Reusable SVG Logo Definition (Hidden) -->
+<svg style="display:none;">
+  <symbol id="veto-logo" viewBox="0 0 100 100">
+    <defs>
+      <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00FF9D"/>
+        <stop offset="100%" stop-color="#00C77A"/>
+      </linearGradient>
+    </defs>
+    <rect width="100" height="100" rx="20" fill="url(#logoGrad)"/>
+    <text x="50" y="58" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="52" font-weight="900" fill="#0B0F19">V</text>
+    <circle cx="78" cy="22" r="8" fill="#0B0F19" opacity="0.15"/>
+  </symbol>
+</svg>
+
+<!-- NAVBAR -->
+<nav class="sticky top-0 z-40 glass border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="showView('landing')">
+      <!-- ✅ SVG Logo Inline (No External Image) -->
+      <svg class="w-10 h-10 rounded-xl shadow-lg shadow-[#00FF9D]/20 ring-1 ring-[#00FF9D]/30 veto-logo-svg"><use href="#veto-logo"/></svg>
+      <div>
+        <div class="font-black text-white tracking-tight">VETO <span class="neon">CASH</span></div>
+        <div class="text-[10px] text-white/50 tracking-widest hidden sm:block">EARN · PLAY · WITHDRAW</div>
+      </div>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm" id="navLinks" style="display:none;">
+      <a class="text-white/70 hover:text-white cursor-pointer transition" onclick="showView('dashboard')">لوحة التحكم</a>
+      <a class="text-white/70 hover:text-white cursor-pointer transition" onclick="showView('earn')">كسب النقاط</a>
+      <a class="text-white/70 hover:text-white cursor-pointer transition" onclick="showView('proofs')">إثباتات الدفع</a>
+      <a class="text-white/70 hover:text-white cursor-pointer transition" onclick="showView('withdraw')">السحب</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <div id="authButtons" class="flex items-center gap-2">
+        <button class="btn-outline-neon px-4 py-2 rounded-xl text-sm" onclick="openAuthModal('login')">دخول</button>
+        <button class="btn-neon px-4 py-2 rounded-xl text-sm" onclick="openAuthModal('register')">ابدأ الآن</button>
+      </div>
+      <div id="userChip" class="hidden items-center gap-3">
+        <div class="hidden md:block text-right">
+          <div class="text-[11px] text-white/50">رصيدك</div>
+          <div class="neon font-black mono text-sm" id="navBalance">$0.00</div>
+        </div>
+        <div class="avatar-circle" id="userAvatar">U</div>
+        <button onclick="handleLogout()" class="px-3 py-1.5 rounded-lg text-xs bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 transition">خروج</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- LANDING -->
+<div id="view-landing" class="view active">
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <div class="inline-block mb-5 px-3 py-1.5 rounded-full glass text-xs text-white/80"><span class="neon">●</span> أكثر من <span class="neon font-bold">124,580</span> مستخدم نشط</div>
+          <h1 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-[1.1]">اكسب <span class="neon">أموالاً حقيقية</span><br/>من مهام بسيطة</h1>
+          <p class="text-white/60 text-lg mb-8 max-w-xl leading-relaxed">أكمل الاستطلاعات، شاهد الإعلانات، وانجز العروض. اسحب أرباحك فوراً عبر PayPal، Crypto، أو Baridimob.</p>
+          <div class="flex flex-wrap gap-3">
+            <button class="btn-neon px-7 py-3.5 rounded-xl text-base" onclick="openAuthModal('register')">🚀 ابدأ الكسب الآن مجاناً</button>
+            <button class="btn-outline-neon px-7 py-3.5 rounded-xl text-base" onclick="document.getElementById('howItWorks').scrollIntoView({behavior:'smooth'})">كيف يعمل؟</button>
+          </div>
+        </div>
+        <div class="relative hidden lg:block">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?w=600&q=80" alt="Dashboard Preview" class="rounded-3xl glow-neon w-full object-cover shadow-2xl border border-white/10"/>
+          <div class="absolute -bottom-6 -right-6 glass rounded-2xl p-4 flex items-center gap-3 animate-bounce">
+            <svg class="w-8 h-8 rounded bg-white p-1" viewBox="0 0 24 24"><path fill="#0070BA" d="M7.5 12h9l-1.5 6H9L7.5 12zm4.5-8C8.96 4 6.5 6.46 6.5 9.5c0 1.68.74 3.19 1.91 4.22L7.5 17h9l-.91-3.28C16.76 12.69 17.5 11.18 17.5 9.5 17.5 6.46 15.04 4 12 4z"/></svg>
+            <div><div class="text-xs text-white/50">تم السحب بنجاح</div><div class="neon font-black mono text-sm">+ $25.00</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ticker with SVG Icons -->
+  <section class="max-w-7xl mx-auto px-4 md:px-6 pb-12">
+    <div class="mb-3 flex items-center gap-2 text-xs text-white/50"><span class="w-2 h-2 rounded-full bg-[#00FF9D] pulse-dot"></span><span class="mono">سحوبات مباشرة — LIVE</span></div>
+    <div class="relative overflow-hidden rounded-2xl glass py-4">
+      <div class="flex gap-4 scroll-ticker whitespace-nowrap">
+        <div class="flex gap-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00FF9D]/10 border border-[#00FF9D]/20">
+            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#0070BA" d="M7.5 12h9l-1.5 6H9L7.5 12zm4.5-8C8.96 4 6.5 6.46 6.5 9.5c0 1.68.74 3.19 1.91 4.22L7.5 17h9l-.91-3.28C16.76 12.69 17.5 11.18 17.5 9.5 17.5 6.46 15.04 4 12 4z"/></svg>
+            <span class="text-white font-bold text-sm">Alex***</span><span class="neon font-bold mono text-sm">$25.00</span><span class="badge bg-[#00FF9D]/30 neon">PAID ✓</span>
+          </div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFD24A]/10 border border-[#FFD24A]/20">
+            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#F7931A" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-12.86c-1.77 0-3.06.73-3.06 2.01 0 1.31.94 2.09 2.44 2.34l.75.13c.84.13 1.22.47 1.22 1.03 0 .75-.75 1.19-1.78 1.19-1.28 0-1.91-.63-2.03-1.5H8.13c.16 1.72 1.5 2.81 3.56 2.81 1.94 0 3.47-.94 3.47-2.56 0-1.41-1.03-2.16-2.56-2.41l-.75-.13c-.78-.13-1.19-.44-1.19-.97 0-.69.66-1.09 1.63-1.09 1.09 0 1.69.53 1.81 1.34h1.72c-.19-1.56-1.44-2.5-3.31-2.5z"/></svg>
+            <span class="text-white font-bold text-sm">Mar***</span><span class="gold font-bold mono text-sm">$48.50</span><span class="badge bg-[#FFD24A]/30 gold">PAID ✓</span>
+          </div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FF4D9D]/10 border border-[#FF4D9D]/20">
+            <svg class="w-4 h-4 rounded-sm" viewBox="0 0 24 24"><rect width="24" height="16" y="4" fill="#006233"/><rect width="8" height="16" x="8" y="4" fill="#fff"/><circle cx="12" cy="12" r="3" fill="#D21034"/></svg>
+            <span class="text-white font-bold text-sm">You***</span><span class="pink font-bold mono text-sm">4,600 DZD</span><span class="badge bg-[#FF4D9D]/30 pink">PAID ✓</span>
+          </div>
+        </div>
+        <div class="flex gap-4" aria-hidden="true">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00FF9D]/10 border border-[#00FF9D]/20">
+            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#0070BA" d="M7.5 12h9l-1.5 6H9L7.5 12zm4.5-8C8.96 4 6.5 6.46 6.5 9.5c0 1.68.74 3.19 1.91 4.22L7.5 17h9l-.91-3.28C16.76 12.69 17.5 11.18 17.5 9.5 17.5 6.46 15.04 4 12 4z"/></svg>
+            <span class="text-white font-bold text-sm">Alex***</span><span class="neon font-bold mono text-sm">$25.00</span><span class="badge bg-[#00FF9D]/30 neon">PAID ✓</span>
+          </div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFD24A]/10 border border-[#FFD24A]/20">
+            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#F7931A" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-12.86c-1.77 0-3.06.73-3.06 2.01 0 1.31.94 2.09 2.44 2.34l.75.13c.84.13 1.22.47 1.22 1.03 0 .75-.75 1.19-1.78 1.19-1.28 0-1.91-.63-2.03-1.5H8.13c.16 1.72 1.5 2.81 3.56 2.81 1.94 0 3.47-.94 3.47-2.56 0-1.41-1.03-2.16-2.56-2.41l-.75-.13c-.78-.13-1.19-.44-1.19-.97 0-.69.66-1.09 1.63-1.09 1.09 0 1.69.53 1.81 1.34h1.72c-.19-1.56-1.44-2.5-3.31-2.5z"/></svg>
+            <span class="text-white font-bold text-sm">Mar***</span><span class="gold font-bold mono text-sm">$48.50</span><span class="badge bg-[#FFD24A]/30 gold">PAID ✓</span>
+          </div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FF4D9D]/10 border border-[#FF4D9D]/20">
+            <svg class="w-4 h-4 rounded-sm" viewBox="0 0 24 24"><rect width="24" height="16" y="4" fill="#006233"/><rect width="8" height="16" x="8" y="4" fill="#fff"/><circle cx="12" cy="12" r="3" fill="#D21034"/></svg>
+            <span class="text-white font-bold text-sm">You***</span><span class="pink font-bold mono text-sm">4,600 DZD</span><span class="badge bg-[#FF4D9D]/30 pink">PAID ✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="howItWorks" class="max-w-7xl mx-auto px-4 md:px-6 py-16">
+    <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-black text-white">كيف يعمل VETO CASH؟</h2></div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl p-6 overflow-hidden relative">
+        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400&q=70" class="absolute inset-0 w-full h-full object-cover opacity-20" alt=""/>
+        <div class="relative z-10"><div class="text-4xl mb-4">📝</div><h3 class="font-black text-white text-xl mb-2">سجّل مجاناً</h3><p class="text-white/60 text-sm">أنشئ حسابك في أقل من 30 ثانية عبر Google أو البريد الإلكتروني.</p></div>
+      </div>
+      <div class="glass rounded-2xl p-6 overflow-hidden relative">
+        <img src="https://images.unsplash.com/photo-1553877615-30c73a63b4d4?w=400&q=70" class="absolute inset-0 w-full h-full object-cover opacity-20" alt=""/>
+        <div class="relative z-10"><div class="text-4xl mb-4">💰</div><h3 class="font-black text-white text-xl mb-2">أكمل العروض</h3><p class="text-white/60 text-sm">استطلاعات، تطبيقات، فيديوهات — كل نشاط يضيف نقاطاً لرصيدك.</p></div>
+      </div>
+      <div class="glass rounded-2xl p-6 overflow-hidden relative">
+        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&q=70" class="absolute inset-0 w-full h-full object-cover opacity-20" alt=""/>
+        <div class="relative z-10"><div class="text-4xl mb-4">💸</div><h3 class="font-black text-white text-xl mb-2">اسحب أرباحك</h3><p class="text-white/60 text-sm">PayPal، Crypto، Payeer، أو Baridimob — استلم خلال ساعات.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DASHBOARD -->
+<div id="view-dashboard" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-8">
+    <h1 class="text-3xl font-black text-white mb-6">لوحة التحكم</h1>
+    <div class="grid md:grid-cols-4 gap-4 mb-8">
+      <div class="glass rounded-2xl p-5 glow-neon md:col-span-2">
+        <div class="text-xs text-white/50 uppercase tracking-widest mb-2">رصيدك الحالي</div>
+        <div class="text-5xl font-black neon mono" id="dashBalance">$0.00</div>
+        <div class="mt-4 flex gap-2">
+          <button class="btn-neon px-4 py-2 rounded-lg text-sm" onclick="showView('withdraw')">💸 سحب الآن</button>
+          <button class="btn-outline-neon px-4 py-2 rounded-lg text-sm" onclick="showView('earn')">+ كسب المزيد</button>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-5"><div class="text-xs text-white/50 uppercase tracking-widest mb-2">🔥 سلسلة الأيام</div><div class="text-3xl font-black text-white"><span id="dashStreak">0</span> يوم</div></div>
+      <div class="glass rounded-2xl p-5"><div class="text-xs text-white/50 uppercase tracking-widest mb-2">إجمالي الأرباح</div><div class="text-3xl font-black gold mono" id="dashLifetime">$0.00</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EARN with SVG fallback logos -->
+<div id="view-earn" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-8">
+    <h1 class="text-3xl font-black text-white mb-6">كسب النقاط</h1>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="offer-card glass rounded-2xl p-5 cursor-pointer" onclick="simulateOffer('AdGate Media',2.4)">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black text-xs">AG</div>
+          <div><div class="font-bold text-white">AdGate Media</div><div class="text-xs text-white/40">حتى $5</div></div>
+        </div>
+        <button class="w-full py-2 rounded-lg btn-neon text-sm">ابدأ الكسب →</button>
+      </div>
+      <div class="offer-card glass rounded-2xl p-5 cursor-pointer" onclick="simulateOffer('AyetStudios',1.8)">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-600 flex items-center justify-center text-white font-black text-xs">AY</div>
+          <div><div class="font-bold text-white">AyetStudios</div><div class="text-xs text-white/40">حتى $3</div></div>
+        </div>
+        <button class="w-full py-2 rounded-lg btn-neon text-sm">ابدأ الكسب →</button>
+      </div>
+      <div class="offer-card glass rounded-2xl p-5 cursor-pointer" onclick="simulateOffer('OfferToro',3.5)">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center text-white font-black text-xs">OT</div>
+          <div><div class="font-bold text-white">OfferToro</div><div class="text-xs text-white/40">عروض حصرية</div></div>
+        </div>
+        <button class="w-full py-2 rounded-lg btn-neon text-sm">ابدأ الكسب →</button>
+      </div>
+      <div class="offer-card glass rounded-2xl p-5 cursor-pointer" onclick="simulateOffer('Monetix',1.2)">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center text-white font-black text-xs">MX</div>
+          <div><div class="font-bold text-white">Monetix</div><div class="text-xs text-white/40">عروض عالمية</div></div>
+        </div>
+        <button class="w-full py-2 rounded-lg btn-neon text-sm">ابدأ الكسب →</button>
+      </div>
+      <div class="offer-card glass rounded-2xl p-5 cursor-pointer" onclick="simulateOffer('Unity Ads',0.05)">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white font-black text-xs">UA</div>
+          <div><div class="font-bold text-white">Unity Ads</div><div class="text-xs text-white/40">$0.05 / مشاهدة</div></div>
+        </div>
+        <button class="w-full py-2 rounded-lg btn-outline-neon text-sm">▶ شاهد إعلان</button>
+      </div>
+      <div class="offer-card glass rounded-2xl p-5 cursor-pointer" onclick="simulateOffer('CPX Research',0.8)">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-black text-xs">CP</div>
+          <div><div class="font-bold text-white">CPX Research</div><div class="text-xs text-white/40">دراسات بحثية</div></div>
+        </div>
+        <button class="w-full py-2 rounded-lg btn-neon text-sm">ابدأ الكسب →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOFS SECTION -->
+<div id="view-proofs" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-8">
+    <div class="text-center mb-10">
+      <h1 class="text-3xl font-black text-white mb-2">إثباتات الدفع الحقيقية</h1>
+      <p class="text-white/50 text-sm">صور حقيقية لعمليات سحب ناجحة من مستخدمينا حول العالم</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="glass rounded-2xl overflow-hidden offer-card">
+        <img src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=500&q=80" class="proof-img" alt="PayPal Proof"/>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#0070BA" d="M7.5 12h9l-1.5 6H9L7.5 12zm4.5-8C8.96 4 6.5 6.46 6.5 9.5c0 1.68.74 3.19 1.91 4.22L7.5 17h9l-.91-3.28C16.76 12.69 17.5 11.18 17.5 9.5 17.5 6.46 15.04 4 12 4z"/></svg><span class="font-bold text-white text-sm">PayPal</span></div>
+            <span class="badge bg-[#00FF9D]/20 neon">VERIFIED ✓</span>
+          </div>
+          <div class="flex justify-between items-end"><div><div class="text-xs text-white/50">Ahmed***</div><div class="text-[10px] text-white/30 mono">2026-05-28</div></div><div class="neon font-black mono text-lg">$25.00</div></div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden offer-card">
+        <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=500&q=80" class="proof-img" alt="Crypto Proof"/>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#F7931A" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg><span class="font-bold text-white text-sm">USDT TRC20</span></div>
+            <span class="badge bg-[#FFD24A]/20 gold">VERIFIED ✓</span>
+          </div>
+          <div class="flex justify-between items-end"><div><div class="text-xs text-white/50">Mar***</div><div class="text-[10px] text-white/30 mono">2026-05-27</div></div><div class="gold font-black mono text-lg">$48.50</div></div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden offer-card">
+        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=500&q=80" class="proof-img" alt="Baridimob Proof"/>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 rounded-sm" viewBox="0 0 24 24"><rect width="24" height="16" y="4" fill="#006233"/><rect width="8" height="16" x="8" y="4" fill="#fff"/><circle cx="12" cy="12" r="3" fill="#D21034"/></svg><span class="font-bold text-white text-sm">Baridimob</span></div>
+            <span class="badge bg-[#FF4D9D]/20 pink">VERIFIED ✓</span>
+          </div>
+          <div class="flex justify-between items-end"><div><div class="text-xs text-white/50">You***</div><div class="text-[10px] text-white/30 mono">2026-05-26</div></div><div class="pink font-black mono text-lg">4,600 DZD</div></div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden offer-card">
+        <img src="https://images.unsplash.com/photo-1591994843349-f4158b7b6ac6?w=500&q=80" class="proof-img" alt="Payeer Proof"/>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2"><div class="w-5 h-5 rounded bg-[#C81FCD] flex items-center justify-center text-white text-[9px] font-bold">P</div><span class="font-bold text-white text-sm">Payeer</span></div>
+            <span class="badge bg-[#3B82F6]/20 blue">VERIFIED ✓</span>
+          </div>
+          <div class="flex justify-between items-end"><div><div class="text-xs text-white/50">Kar***</div><div class="text-[10px] text-white/30 mono">2026-05-25</div></div><div class="blue font-black mono text-lg">$12.00</div></div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden offer-card">
+        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&q=80" class="proof-img" alt="PayPal Large"/>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#0070BA" d="M7.5 12h9l-1.5 6H9L7.5 12zm4.5-8C8.96 4 6.5 6.46 6.5 9.5c0 1.68.74 3.19 1.91 4.22L7.5 17h9l-.91-3.28C16.76 12.69 17.5 11.18 17.5 9.5 17.5 6.46 15.04 4 12 4z"/></svg><span class="font-bold text-white text-sm">PayPal Premium</span></div>
+            <span class="badge bg-[#00FF9D]/20 neon">VERIFIED ✓</span>
+          </div>
+          <div class="flex justify-between items-end"><div><div class="text-xs text-white/50">Sam***</div><div class="text-[10px] text-white/30 mono">2026-05-24</div></div><div class="neon font-black mono text-lg">$92.30</div></div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden offer-card">
+        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&q=80" class="proof-img" alt="BEP20 Proof"/>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#F7931A" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg><span class="font-bold text-white text-sm">USDT BEP20</span></div>
+            <span class="badge bg-[#FFD24A]/20 gold">VERIFIED ✓</span>
+          </div>
+          <div class="flex justify-between items-end"><div><div class="text-xs text-white/50">Li***</div><div class="text-[10px] text-white/30 mono">2026-05-23</div></div><div class="gold font-black mono text-lg">$150.00</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-10">
+      <p class="text-white/40 text-sm mb-4">هل تريد أن تظهر صورتك هنا؟ ابدأ الكسب واسحب أرباحك!</p>
+      <button class="btn-neon px-6 py-3 rounded-xl text-sm" onclick="openAuthModal('register')">🚀 ابدأ الآن</button>
+    </div>
+  </div>
+</div>
+
+<!-- WITHDRAW -->
+<div id="view-withdraw" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-8">
+    <h1 class="text-3xl font-black text-white mb-2">السحب</h1>
+    <p class="text-white/50 text-sm mb-8">اختر طريقة الدفع وأدخل بياناتك بدقة لضمان وصول الأموال</p>
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 space-y-6">
+        <!-- PayPal -->
+        <div class="glass rounded-2xl p-6 offer-card">
+          <div class="flex items-center gap-3 mb-5 border-b border-white/5 pb-4">
+            <svg class="w-12 h-8 bg-white rounded-lg px-2 py-1" viewBox="0 0 24 24"><path fill="#0070BA" d="M7.5 12h9l-1.5 6H9L7.5 12zm4.5-8C8.96 4 6.5 6.46 6.5 9.5c0 1.68.74 3.19 1.91 4.22L7.5 17h9l-.91-3.28C16.76 12.69 17.5 11.18 17.5 9.5 17.5 6.46 15.04 4 12 4z"/></svg>
+            <div><div class="font-bold text-white text-lg">PayPal</div><div class="text-xs text-white/40">الحد الأدنى: <span class="neon font-bold">$2.00</span></div></div>
+          </div>
+          <div class="space-y-4">
+            <div><label class="text-xs text-white/60 block mb-1">بريد PayPal</label><input type="email" id="paypalEmail" placeholder="example@paypal.com" class="input-field mono text-sm"/></div>
+            <div><label class="text-xs text-white/60 block mb-1">المبلغ (USD)</label><input type="number" id="paypalAmount" value="2.00" min="2" step="0.5" class="input-field mono text-sm"/></div>
+            <button class="w-full py-3 rounded-xl btn-neon text-sm mt-2" onclick="submitWithdraw('paypal')">طلب السحب عبر PayPal</button>
+          </div>
+        </div>
+        <!-- Crypto -->
+        <div class="glass rounded-2xl p-6 offer-card">
+          <div class="flex items-center gap-3 mb-5 border-b border-white/5 pb-4">
+            <svg class="w-10 h-10 rounded-xl bg-[#F7931A]/20 p-1.5" viewBox="0 0 24 24"><path fill="#F7931A" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-12.86c-1.77 0-3.06.73-3.06 2.01 0 1.31.94 2.09 2.44 2.34l.75.13c.84.13 1.22.47 1.22 1.03 0 .75-.75 1.19-1.78 1.19-1.28 0-1.91-.63-2.03-1.5H8.13c.16 1.72 1.5 2.81 3.56 2.81 1.94 0 3.47-.94 3.47-2.56 0-1.41-1.03-2.16-2.56-2.41l-.75-.13c-.78-.13-1.19-.44-1.19-.97 0-.69.66-1.09 1.63-1.09 1.09 0 1.69.53 1.81 1.34h1.72c-.19-1.56-1.44-2.5-3.31-2.5z"/></svg>
+            <div><div class="font-bold text-white text-lg">Crypto (USDT)</div><div class="text-xs text-white/40">الحد الأدنى: <span class="neon font-bold">$2.00</span></div></div>
+          </div>
+          <div class="space-y-4">
+            <div><label class="text-xs text-white/60 block mb-1">الشبكة</label><select id="cryptoNetwork" class="input-field text-sm"><option value="TRC20">TRC20 (Tron)</option><option value="BEP20">BEP20 (BSC)</option></select></div>
+            <div><label class="text-xs text-white/60 block mb-1">عنوان المحفظة</label><input type="text" id="cryptoWallet" placeholder="T..." class="input-field mono text-sm"/></div>
+            <div><label class="text-xs text-white/60 block mb-1">المبلغ (USD)</label><input type="number" id="cryptoAmount" value="2.00" min="2" step="0.5" class="input-field mono text-sm"/></div>
+            <button class="w-full py-3 rounded-xl bg-gradient-to-r from-[#FFD24A] to-[#F59E0B] text-black font-bold text-sm mt-2" onclick="submitWithdraw('crypto')">طلب السحب Crypto</button>
+          </div>
+        </div>
+        <!-- Baridimob -->
+        <div class="glass rounded-2xl p-6 offer-card">
+          <div class="flex items-center gap-3 mb-5 border-b border-white/5 pb-4">
+            <svg class="w-10 h-10 rounded-xl bg-[#00A651]/20 p-0.5" viewBox="0 0 24 24"><rect width="24" height="16" y="4" fill="#006233"/><rect width="8" height="16" x="8" y="4" fill="#fff"/><circle cx="12" cy="12" r="3" fill="#D21034"/></svg>
+            <div><div class="font-bold text-white text-lg">Baridimob</div><div class="text-xs text-white/40">Min: <span class="pink font-bold">460 DZD</span> • Rate: <span class="gold font-bold">230</span></div></div>
+          </div>
+          <div class="space-y-4">
+            <div><label class="text-xs text-white/60 block mb-1">اسم صاحب الحساب</label><input type="text" id="baridiName" placeholder="محمد بن علي" class="input-field text-sm"/></div>
+            <div><label class="text-xs text-white/60 block mb-1">رقم RIP (20 رقم)</label><input type="text" id="baridiRip" placeholder="00799999001234567890" maxlength="20" class="input-field mono text-sm"/></div>
+            <div><label class="text-xs text-white/60 block mb-1">المبلغ (DZD)</label>
+              <div class="flex gap-2">
+                <input type="number" id="baridiAmount" value="460" min="460" step="10" class="input-field mono text-sm flex-1"/>
+                <div class="px-3 rounded-xl bg-[#FF4D9D]/10 border border-[#FF4D9D]/20 text-xs flex flex-col items-center justify-center min-w-[80px]">
+                  <span class="pink font-bold mono" id="baridiUsdPreview">≈ $2.00</span>
+                  <span class="text-[9px] text-white/40">rate 230</span>
+                </div>
+              </div>
+            </div>
+            <button class="w-full py-3 rounded-xl bg-gradient-to-r from-[#FF4D9D] to-[#BE185D] text-white font-bold text-sm mt-2" onclick="submitWithdraw('baridimob')">طلب السحب Baridimob</button>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-1">
+        <div class="glass rounded-2xl p-5 sticky top-24">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-white flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#FFD24A] pulse-dot"></span>طلبات السحب</h3>
+            <span class="text-[10px] text-white/40 mono">PENDING REVIEW</span>
+          </div>
+          <div id="withdrawalsList" class="space-y-3 max-h-[600px] overflow-y-auto pr-1">
+            <div class="text-center py-8 text-white/30 text-sm">لا توجد طلبات سحب سابقة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 py-8 mt-10">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg class="w-8 h-8 rounded-lg shadow-md"><use href="#veto-logo"/></svg>
+      <span class="text-sm font-bold text-white">VETO CASH © 2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAuthModal()">×</button>
+    <svg class="w-14 h-14 mx-auto mb-3 rounded-2xl shadow-lg shadow-[#00FF9D]/30"><use href="#veto-logo"/></svg>
+    <h2 class="text-center text-xl font-black text-white mb-1">مرحباً بك في VETO CASH</h2>
+    <p class="text-center text-white/50 text-sm mb-5">سجّل دخولك للبدء في كسب المال الحقيقي</p>
+    <div id="alertMsg" class="alert-msg"></div>
+    <div class="modal-tabs">
+      <div class="modal-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</div>
+      <div class="modal-tab" id="tabRegister" onclick="switchAuthTab('register')">حساب جديد</div>
+    </div>
+    <form id="loginForm" onsubmit="handleEmailLogin(event)">
+      <label class="text-xs text-white/60 block mb-1">البريد الإلكتروني</label>
+      <input type="email" id="loginEmail" required placeholder="you@example.com" class="input-field mb-3"/>
+      <label class="text-xs text-white/60 block mb-1">كلمة المرور</label>
+      <input type="password" id="loginPassword" required minlength="6" placeholder="••••••••" class="input-field mb-4"/>
+      <button type="submit" class="btn-neon w-full py-3 rounded-xl text-sm" id="btnLogin">تسجيل الدخول</button>
+    </form>
+    <form id="registerForm" style="display:none;" onsubmit="handleEmailRegister(event)">
+      <label class="text-xs text-white/60 block mb-1">الاسم الكامل</label>
+      <input type="text" id="regName" required minlength="2" placeholder="اسمك" class="input-field mb-3"/>
+      <label class="text-xs text-white/60 block mb-1">البريد الإلكتروني</label>
+      <input type="email" id="regEmail" required placeholder="you@example.com" class="input-field mb-3"/>
+      <label class="text-xs text-white/60 block mb-1">كلمة المرور</label>
+      <input type="password" id="regPassword" required minlength="6" placeholder="••••••••" class="input-field mb-4"/>
+      <button type="submit" class="btn-neon w-full py-3 rounded-xl text-sm" id="btnRegister">إنشاء حساب</button>
+    </form>
+    <div class="divider">أو</div>
+    <button class="btn-google" onclick="handleGoogleLogin()">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      المتابعة بحساب Google
+    </button>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAmUmkK_dCbcrLC4RrsRKlqR8Bsd36G0G0",
+  authDomain: "vura-95d02.firebaseapp.com",
+  databaseURL: "https://vura-95d02-default-rtdb.firebaseio.com",
+  projectId: "vura-95d02",
+  storageBucket: "vura-95d02.firebasestorage.app",
+  messagingSenderId: "793157386911",
+  appId: "1:793157386911:web:3ca94ed14b9d0c5f1318aa",
+  measurementId: "G-TT56DM3MH8"
+};
+
+let auth, db;
+try { if (!firebase.apps.length) firebase.initializeApp(firebaseConfig); auth = firebase.auth(); db = firebase.database(); } catch(e){}
+
+let currentUser = null, userDataRef = null, withdrawalsRef = null;
+const GOOGLE_CLIENT_ID = '87782471218-5l9ash65tp6qg6pebvtapo4ebr51q7c2.apps.googleusercontent.com';
+const BARIDIMOB_RATE = 230;
+const MIN_WITHDRAW_USD = 2;
+const $ = (id) => document.getElementById(id);
+
+$('baridiAmount')?.addEventListener('input', (e) => {
+  $('baridiUsdPreview').textContent = '≈ $' + ((parseFloat(e.target.value)||0) / BARIDIMOB_RATE).toFixed(2);
+});
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  if (['dashboard','earn','withdraw'].includes(name) && !currentUser) { openAuthModal('login'); $('view-landing').classList.add('active'); return; }
+  const t = $('view-'+name); if(t){t.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'});}
+}
+function openAuthModal(tab='login'){$('authModal').classList.add('active');switchAuthTab(tab);}
+function closeAuthModal(){$('authModal').classList.remove('active');hideAlert();}
+$('authModal').addEventListener('click',(e)=>{if(e.target.id==='authModal')closeAuthModal();});
+function switchAuthTab(m){$('tabLogin').classList.toggle('active',m==='login');$('tabRegister').classList.toggle('active',m==='register');$('loginForm').style.display=m==='login'?'block':'none';$('registerForm').style.display=m==='register'?'block':'none';hideAlert();}
+function showAlert(t,m){const b=$('alertMsg');b.className='alert-msg alert-'+t;b.innerHTML=m;b.style.display='block';}
+function hideAlert(){$('alertMsg').style.display='none';}
+
+async function handleEmailLogin(e){e.preventDefault();const b=$('btnLogin');b.disabled=true;b.textContent='جاري...';try{await auth.signInWithEmailAndPassword($('loginEmail').value.trim(),$('loginPassword').value);closeAuthModal();}catch(err){showAlert('error',getErrMsg(err.code));}finally{b.disabled=false;b.textContent='تسجيل الدخول';}}
+async function handleEmailRegister(e){e.preventDefault();const b=$('btnRegister');b.disabled=true;b.textContent='جاري...';try{const c=await auth.createUserWithEmailAndPassword($('regEmail').value.trim(),$('regPassword').value);await c.user.updateProfile({displayName:$('regName').value.trim()});await db.ref('users/'+c.user.uid).set({name:$('regName').value.trim(),email:c.user.email,provider:'password',balance:{usd:0,points:0},lifetime:{earned:0,withdrawn:0},streak:0,createdAt:firebase.database.ServerValue.TIMESTAMP});closeAuthModal();}catch(err){showAlert('error',getErrMsg(err.code));}finally{b.disabled=false;b.textContent='إنشاء حساب';}}
+async function handleGoogleLogin(){const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({client_id:GOOGLE_CLIENT_ID,prompt:'select_account'});try{const r=await auth.signInWithPopup(p);const ref=db.ref('users/'+r.user.uid);const s=await ref.once('value');if(!s.exists())await ref.set({name:r.user.displayName||'مستخدم Google',email:r.user.email,photo:r.user.photoURL||null,provider:'google',balance:{usd:0,points:0},lifetime:{earned:0,withdrawn:0},streak:0,createdAt:firebase.database.ServerValue.TIMESTAMP});closeAuthModal();}catch(err){if(err.code==='auth/popup-closed-by-user')return;showAlert('info','⚠️ Google OAuth يحتاج خادم محلي (http://localhost). استخدم Live Server.');}}
+function handleLogout(){if(userDataRef)userDataRef.off();if(withdrawalsRef)withdrawalsRef.off();auth.signOut();showView('landing');}
+function getErrMsg(c){const m={'auth/user-not-found':'لا يوجد حساب','auth/wrong-password':'كلمة المرور غير صحيحة','auth/email-already-in-use':'البريد مسجل','auth/weak-password':'كلمة المرور ضعيفة','auth/invalid-email':'بريد غير صالح'};return m[c]||'خطأ: '+c;}
+
+auth.onAuthStateChanged((u)=>{if(u){currentUser=u;$('authButtons').classList.add('hidden');$('userChip').classList.remove('hidden');$('userChip').classList.add('flex');$('navLinks').style.display='flex';renderChip(u);subUser(u.uid);subWd(u.uid);}else{currentUser=null;$('authButtons').classList.remove('hidden');$('userChip').classList.add('hidden');$('userChip').classList.remove('flex');$('navLinks').style.display='none';if(!$('view-landing').classList.contains('active'))showView('landing');}});
+function renderChip(u){const a=$('userAvatar');if(u.photoURL)a.innerHTML=`<img src="${u.photoURL}" alt=""/>`;else{const n=u.displayName||u.email||'U';a.textContent=n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();}}
+function subUser(uid){if(userDataRef)userDataRef.off();userDataRef=db.ref('users/'+uid);userDataRef.on('value',(s)=>{const d=s.val()||{};const b=d.balance||{usd:0};const l=d.lifetime||{earned:0};if($('navBalance'))$('navBalance').textContent='$'+(b.usd||0).toFixed(2);if($('dashBalance'))$('dashBalance').textContent='$'+(b.usd||0).toFixed(2);if($('dashLifetime'))$('dashLifetime').textContent='$'+(l.earned||0).toFixed(2);if($('dashStreak'))$('dashStreak').textContent=d.streak||0;});}
+function subWd(uid){if(withdrawalsRef)withdrawalsRef.off();withdrawalsRef=db.ref('users/'+uid+'/withdrawals');withdrawalsRef.orderByChild('timestamp').on('value',(s)=>{const list=$('withdrawalsList');if(!s.exists()){list.innerHTML='<div class="text-center py-8 text-white/30 text-sm">لا توجد طلبات سحب سابقة</div>';return;}const items=[];s.forEach(c=>items.push({id:c.key,...c.val()}));items.reverse();list.innerHTML=items.map(w=>{const sc={pending:'bg-[#FFD24A]/20 text-[#FFD24A] border-[#FFD24A]/30',approved:'bg-[#00FF9D]/20 text-[#00FF9D] border-[#00FF9D]/30',rejected:'bg-[#FF4D9D]/20 text-[#FF4D9D] border-[#FF4D9D]/30'};const sl={pending:'قيد المراجعة',approved:'تمت الموافقة',rejected:'مرفوض'};const st=w.status||'pending';let det='';if(w.gateway==='paypal')det=`📧 ${w.details?.email||''}`;else if(w.gateway==='crypto')det=`₿ ${w.details?.network||''} • ${(w.details?.wallet||'').substring(0,8)}...`;else if(w.gateway==='baridimob')det=`🇩🇿 RIP: ${(w.details?.rip||'').substring(0,8)}...`;return `<div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 fade-in"><div class="flex justify-between items-start mb-2"><div class="font-bold text-white text-sm">${w.gateway.toUpperCase()}</div><span class="text-[10px] px-2 py-0.5 rounded-full border ${sc[st]}">${sl[st]}</span></div><div class="text-xs text-white/50 mb-1 truncate">${det}</div><div class="flex justify-between items-end mt-2"><div class="text-[10px] text-white/30 mono">${new Date(w.timestamp).toLocaleDateString('ar-DZ')}</div><div class="font-black mono text-sm ${w.gateway==='baridimob'?'pink':'neon'}">${w.gateway==='baridimob'?w.amountLocal+' DZD':'$'+(w.amount||0).toFixed(2)}</div></div></div>`;}).join('');});}
+
+async function submitWithdraw(gw){
+  if(!currentUser){openAuthModal('login');return;}
+  let amount=0,details={},err='';
+  if(gw==='paypal'){const e=$('paypalEmail').value.trim();amount=parseFloat($('paypalAmount').value);if(!e||!e.includes('@'))err='يرجى إدخال بريد PayPal صحيح';else if(amount<MIN_WITHDRAW_USD)err=`الحد الأدنى $${MIN_WITHDRAW_USD}`;else details={email:e};}
+  else if(gw==='crypto'){const w=$('cryptoWallet').value.trim();const n=$('cryptoNetwork').value;amount=parseFloat($('cryptoAmount').value);if(!w||w.length<10)err='عنوان محفظة غير صحيح';else if(amount<MIN_WITHDRAW_USD)err=`الحد الأدنى $${MIN_WITHDRAW_USD}`;else details={wallet:w,network:n};}
+  else if(gw==='baridimob'){const nm=$('baridiName').value.trim();const rip=$('baridiRip').value.trim();const dzd=parseFloat($('baridiAmount').value);amount=dzd/BARIDIMOB_RATE;if(!nm||nm.length<3)err='أدخل اسم صاحب الحساب';else if(!/^\d{20}$/.test(rip))err='RIP يجب أن يكون 20 رقم';else if(dzd<(MIN_WITHDRAW_USD*BARIDIMOB_RATE))err=`الحد الأدنى ${MIN_WITHDRAW_USD*BARIDIMOB_RATE} DZD`;else details={rip,holderName:nm};}
+  if(err){showToast(err,'error');return;}
+  const snap=await db.ref('users/'+currentUser.uid+'/balance/usd').once('value');
+  if((snap.val()||0)<amount){showToast('رصيدك غير كافٍ','error');return;}
+  try{
+    await db.ref('users/'+currentUser.uid+'/balance/usd').transaction(v=>(v||0)-amount);
+    await db.ref('users/'+currentUser.uid+'/withdrawals').push({gateway:gw,amount:parseFloat(amount.toFixed(2)),amountLocal:gw==='baridimob'?parseFloat($('baridiAmount').value):null,exchangeRate:gw==='baridimob'?BARIDIMOB_RATE:null,details,status:'pending',timestamp:firebase.database.ServerValue.TIMESTAMP});
+    showToast('✅ تم إرسال طلب السحب بنجاح!');
+    if(gw==='paypal')$('paypalEmail').value='';if(gw==='crypto')$('cryptoWallet').value='';if(gw==='baridimob'){$('baridiName').value='';$('baridiRip').value='';}
+  }catch(e){showToast('❌ حدث خطأ','error');}
+}
+
+async function simulateOffer(src,rwd){if(!currentUser){openAuthModal('login');return;}try{await db.ref('users/'+currentUser.uid+'/balance/usd').transaction(v=>(v||0)+rwd);await db.ref('users/'+currentUser.uid+'/balance/points').transaction(v=>(v||0)+Math.round(rwd*100));await db.ref('users/'+currentUser.uid+'/lifetime/earned').transaction(v=>(v||0)+rwd);showToast(`✅ +$${rwd.toFixed(2)} من ${src}`);}catch(e){showToast('❌ فشل','error');}}
+
+function showToast(msg,type='success'){const old=document.querySelector('.vc-toast');if(old)old.remove();const t=document.createElement('div');t.className='vc-toast';t.style.cssText=`position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:14px 24px;border-radius:14px;z-index:200;background:${type==='error'?'rgba(255,69,58,0.95)':'rgba(0,255,157,0.95)'};color:${type==='error'?'white':'#000'};font-weight:700;font-size:14px;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:fadeIn .3s ease;max-width:90vw;text-align:center;`;t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},3500);}
+</script>
+</body>
+</html>
+
