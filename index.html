@@ -6,6 +6,7 @@
     <title x-text="t('page_title')">Vault - Premium Digital Products</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.15/index.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/tajawal@5.0.15/index.min.css">
     
@@ -126,10 +127,9 @@
                         <svg x-show="darkMode" x-cloak class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </button>
 
-                    <!-- Cart -->
-                    <button class="relative p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <!-- Cart (Opens Auth Modal) -->
+                    <button @click="openAuthModal()" class="relative p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" :title="lang === 'ar' ? 'سلة التسوق (تسجيل الدخول مطلوب)' : 'Cart (Login Required)'">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        <span x-show="cartCount > 0" x-transition class="absolute -top-1 -end-1 bg-luminous text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center" x-text="cartCount"></span>
                     </button>
 
                     <!-- Prominent Auth Button -->
@@ -158,8 +158,8 @@
                     </h1>
                     <p class="text-lg text-white/80 max-w-lg leading-relaxed" x-text="t('hero_desc')"></p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button class="px-8 py-4 rounded-xl bg-white text-luminous font-bold text-lg hover:scale-105 transition-all shadow-2xl shadow-black/20 animate-pulse-glow" x-text="t('hero_cta_1')"></button>
-                        <button class="px-8 py-4 rounded-xl bg-white/10 text-white font-semibold text-lg border border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all" x-text="t('hero_cta_2')"></button>
+                        <button @click="openAuthModal()" class="px-8 py-4 rounded-xl bg-white text-luminous font-bold text-lg hover:scale-105 transition-all shadow-2xl shadow-black/20 animate-pulse-glow" x-text="t('hero_cta_1')"></button>
+                        <button @click="openAuthModal()" class="px-8 py-4 rounded-xl bg-white/10 text-white font-semibold text-lg border border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all" x-text="t('hero_cta_2')"></button>
                     </div>
                     <div class="flex items-center gap-6 pt-4">
                         <div class="flex -space-x-3 rtl:space-x-reverse">
@@ -245,7 +245,7 @@
                     <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2" x-text="t('products_title')"></h2>
                     <p class="text-slate-600 dark:text-slate-400" x-text="t('products_desc')"></p>
                 </div>
-                <button class="hidden sm:block text-luminous dark:text-ice font-semibold hover:underline" x-text="t('products_view_all')"></button>
+                <button @click="openAuthModal()" class="hidden sm:block text-luminous dark:text-ice font-semibold hover:underline" x-text="t('products_view_all')"></button>
             </div>
             
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -267,7 +267,7 @@
                             </div>
                             <div class="flex items-center justify-between">
                                 <span class="text-xl font-bold text-luminous dark:text-ice" x-text="product.price"></span>
-                                <button @click="addToCart(product.name)" class="px-4 py-2 rounded-lg bg-luminous text-white text-sm font-semibold hover:bg-luminous-dark transition-colors shadow-md shadow-luminous/30" x-text="lang === 'ar' ? 'أضف للسلة' : 'Add to Cart'"></button>
+                                <button @click="openAuthModal()" class="px-4 py-2 rounded-lg bg-luminous text-white text-sm font-semibold hover:bg-luminous-dark transition-colors shadow-md shadow-luminous/30" x-text="lang === 'ar' ? 'أضف للسلة' : 'Add to Cart'"></button>
                             </div>
                         </div>
                     </div>
@@ -311,7 +311,7 @@
                                     <p class="text-xs text-slate-500 dark:text-slate-400" x-text="item.size + ' • ' + item.date"></p>
                                 </div>
                             </div>
-                            <button class="px-3 py-1.5 rounded-lg bg-luminous/10 dark:bg-ice/10 text-luminous dark:text-ice text-xs font-semibold hover:bg-luminous/20 dark:hover:bg-ice/20 transition-colors" x-text="lang === 'ar' ? 'تنزيل' : 'Download'"></button>
+                            <button @click="openAuthModal()" class="px-3 py-1.5 rounded-lg bg-luminous/10 dark:bg-ice/10 text-luminous dark:text-ice text-xs font-semibold hover:bg-luminous/20 dark:hover:bg-ice/20 transition-colors" x-text="lang === 'ar' ? 'تنزيل' : 'Download'"></button>
                         </div>
                     </template>
                 </div>
@@ -452,8 +452,14 @@
             </div>
 
             <div class="grid grid-cols-3 gap-3">
-                <button class="flex items-center justify-center py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                <!-- Google OAuth Button -->
+                <button @click="signInWithGoogle()" class="flex items-center justify-center py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
                 </button>
                 <button class="flex items-center justify-center py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
@@ -483,9 +489,7 @@
                 darkMode: false,
                 authModal: false,
                 authTab: 'login',
-                cartCount: 0,
                 dashboardTab: 'downloads',
-                toast: { show: false, message: '' },
                 stats: { budget: 50000, users: 20000, projects: 200 },
                 products: [
                     { id: 1, name: 'Ultimate UI Kit Pro', desc: '500+ components for Figma and Sketch. Fully customizable.', price: '$49', rating: 5, reviews: 128, category: 'UI Kit', icon: '◆' },
@@ -525,7 +529,7 @@
                         auth_login: 'Login', auth_signup: 'Sign Up',
                         auth_first_name: 'First Name', auth_last_name: 'Last Name', auth_email: 'Email', auth_password: 'Password',
                         auth_submit_login: 'Sign In', auth_submit_signup: 'Create Account', auth_or: 'Or continue with',
-                        toast_title: 'Added to Cart', toast_added: 'Product added to your cart successfully.'
+                        toast_title: 'Success'
                     },
                     ar: {
                         page_title: 'فولت - منتجات رقمية متميزة',
@@ -548,7 +552,7 @@
                         auth_login: 'تسجيل الدخول', auth_signup: 'إنشاء حساب',
                         auth_first_name: 'الاسم الأول', auth_last_name: 'اسم العائلة', auth_email: 'البريد الإلكتروني', auth_password: 'كلمة المرور',
                         auth_submit_login: 'تسجيل الدخول', auth_submit_signup: 'إنشاء حساب', auth_or: 'أو المتابعة باستخدام',
-                        toast_title: 'تمت الإضافة للسلة', toast_added: 'تمت إضافة المنتج إلى سلة التسوق بنجاح.'
+                        toast_title: 'نجاح'
                     }
                 },
                 t(key) {
@@ -560,17 +564,49 @@
                 openAuthModal() {
                     this.authModal = true;
                 },
-                addToCart(productName) {
-                    this.cartCount++;
-                    this.toast.message = this.lang === 'ar' ? `تمت إضافة "${productName}" إلى السلة.` : `"${productName}" added to your cart.`;
-                    this.toast.show = true;
-                    setTimeout(() => { this.toast.show = false; }, 3000);
-                },
                 scrollTo(id) {
                     document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
                 },
+                signInWithGoogle() {
+                    if (typeof google !== 'undefined' && google.accounts) {
+                        google.accounts.id.initialize({
+                            client_id: '87782471218-5l9ash65tp6qg6pebvtapo4ebr51q7c2.apps.googleusercontent.com',
+                            callback: (response) => {
+                                try {
+                                    const payload = this.decodeJwtResponse(response.credential);
+                                    this.authModal = false;
+                                    this.toast.message = this.lang === 'ar' 
+                                        ? `تم تسجيل الدخول بنجاح باسم ${payload.name}` 
+                                        : `Successfully logged in as ${payload.name}`;
+                                    this.toast.show = true;
+                                    setTimeout(() => { this.toast.show = false; }, 4000);
+                                } catch (e) {
+                                    console.error("Google Sign-In Error", e);
+                                    this.toast.message = this.lang === 'ar' ? 'فشل تسجيل الدخول عبر غوغل' : 'Google Sign-In failed';
+                                    this.toast.show = true;
+                                    setTimeout(() => { this.toast.show = false; }, 4000);
+                                }
+                            }
+                        });
+                        google.accounts.id.prompt();
+                    } else {
+                        this.toast.message = this.lang === 'ar' ? 'جاري تحميل خدمة غوغل...' : 'Loading Google service...';
+                        this.toast.show = true;
+                        setTimeout(() => { 
+                            this.toast.show = false; 
+                            if (typeof google !== 'undefined') this.signInWithGoogle();
+                        }, 2000);
+                    }
+                },
+                decodeJwtResponse(token) {
+                    const base64Url = token.split('.')[1];
+                    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                    return JSON.parse(jsonPayload);
+                },
                 init() {
-                    // Live counter: starts at 20,000 and increments by 1 every 30 seconds
                     setInterval(() => {
                         this.stats.users += 1;
                     }, 30000);
@@ -580,5 +616,4 @@
     </script>
 </body>
 </html>
-
 
