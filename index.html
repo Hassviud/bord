@@ -1,33 +1,584 @@
-Act as an Expert UI/UX Designer and Full-Stack Web Developer. Generate a highly professional, modern, and high-converting e-commerce platform specifically designed for selling digital products. 
+<!DOCTYPE html>
+<html lang="en" x-data="appData()" :class="{ 'dark': darkMode }" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title x-text="t('page_title')">Vault - Premium Digital Products</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.15/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/tajawal@5.0.15/index.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        luminous: { DEFAULT: '#0066FF', dark: '#0047B3', light: '#3385FF' },
+                        ice: { DEFAULT: '#0EA5E9', dark: '#0284C7', light: '#38BDF8' }
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(0, 102, 255, 0.4)' },
+                            '50%': { boxShadow: '0 0 40px rgba(0, 102, 255, 0.8)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Inter', 'Tajawal', sans-serif; }
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        .marquee-content:hover { animation-play-state: paused; }
+        .hero-gradient {
+            background: radial-gradient(circle at 30% 50%, rgba(0, 102, 255, 0.9) 0%, rgba(2, 132, 199, 0.8) 50%, rgba(14, 165, 233, 0.9) 100%);
+        }
+        .dark .hero-gradient {
+            background: radial-gradient(circle at 30% 50%, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.98) 50%, rgba(15, 23, 42, 0.95) 100%);
+        }
+        [dir="rtl"] .marquee-content { animation-direction: reverse; }
+    </style>
+</head>
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-500 antialiased">
 
-Please build the front-end layout based on the following strict requirements:
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-slate-200/50 dark:border-slate-800/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer" @click="scrollTo('hero')">
+                    <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-xl tracking-tighter">V</span>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Vault</span>
+                </div>
 
-1. Color Palette & Typography:
-- Backgrounds: A seamless blend of Luminous Blue and Crisp White to create a modern, tech-forward, and trustworthy atmosphere.
-- Typography: Use a highly professional, modern sans-serif font (e.g., Inter or Roboto). 
-- Text Colors: Text should be a mix of Cool Ice Blue and Pure White, ensuring excellent contrast, readability, and a premium aesthetic.
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#products" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-luminous dark:hover:text-ice transition-colors" x-text="t('nav_products')"></a>
+                    <a href="#stats" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-luminous dark:hover:text-ice transition-colors" x-text="t('nav_stats')"></a>
+                    <a href="#dashboard" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-luminous dark:hover:text-ice transition-colors" x-text="t('nav_dashboard')"></a>
+                </div>
 
-2. Branding:
-- Logo: Create a sleek, minimalist, and highly professional letter "V" in pure white, placed against a stark black background.
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3">
+                    <!-- Language & Currency Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" @click.outside="open = false" class="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span x-text="lang === 'ar' ? 'AR / SAR' : 'EN / USD'"></span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="open" x-transition class="absolute end-0 mt-2 w-48 rounded-xl shadow-xl glass border border-slate-200 dark:border-slate-700 py-2 z-50">
+                            <div class="px-4 py-2 text-xs font-semibold text-slate-500 uppercase" x-text="lang === 'ar' ? 'اللغة' : 'Language'"></div>
+                            <a href="#" @click.prevent="lang = 'en'; open = false" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-luminous/10">English</a>
+                            <a href="#" @click.prevent="lang = 'ar'; open = false" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-luminous/10">العربية</a>
+                            <div class="border-t border-slate-200 dark:border-slate-700 my-1"></div>
+                            <div class="px-4 py-2 text-xs font-semibold text-slate-500 uppercase" x-text="lang === 'ar' ? 'العملة' : 'Currency'"></div>
+                            <a href="#" @click.prevent="open = false" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-luminous/10">USD ($)</a>
+                            <a href="#" @click.prevent="open = false" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-luminous/10">SAR (ر.س)</a>
+                        </div>
+                    </div>
 
-3. Core UI Sections & Features:
-- Authentication System: A beautifully designed modal or page for 'Login' and 'Sign Up' with smooth transitions.
-- Hero Section: A compelling headline for digital products with a luminous, eye-catching Call-to-Action (CTA) button.
-- Global Trust Marquee: An infinite scrolling banner at the bottom of the screen (or just below the hero section) displaying grayed-out but recognizable logos of supported platforms and tech giants: TikTok, Microsoft, Apple, etc.
-- Platform Statistics (Animated Counters): An elegant section showcasing the platform's credibility with animated numbers counting up to: "$50,000 Budget/Volume", "20,000+ Active Users", and "200+ Premium Projects".
+                    <!-- Dark Mode Toggle -->
+                    <button @click="toggleDarkMode()" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg x-show="darkMode" x-cloak class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
 
-4. Localization & Global Reach:
-- The platform architecture must visually support 90+ countries and all global languages. 
-- Default language: English. 
-- Include a sleek dropdown menu in the navbar for Language and Currency selection.
+                    <!-- Cart -->
+                    <button class="relative p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span x-show="cartCount > 0" x-transition class="absolute -top-1 -end-1 bg-luminous text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center" x-text="cartCount"></span>
+                    </button>
 
-5. Checkout & Payments:
-- A dedicated, secure-looking payment footer or checkout UI section.
-- Must cleanly display high-quality vector icons of accepted payment methods: PayPal, Visa, MasterCard, Google Pay, and Apple Pay.
+                    <!-- Prominent Auth Button -->
+                    <button @click="openAuthModal()" class="px-5 py-2.5 rounded-xl bg-luminous text-white text-sm font-bold hover:bg-luminous-dark transition-all shadow-lg shadow-luminous/30 hover:shadow-luminous/50 hover:scale-105 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
+                        <span x-text="t('nav_login')"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-6. Extra Professional Enhancements (Added for maximum conversion):
-- Product Grid: Clean product cards for digital assets featuring hover effects, price tags, star ratings, and an 'Add to Cart' button.
-- UI Effects: Implement subtle Glassmorphism (frosted glass effects) on navigation bars and cards, along with smooth micro-interactions on hover.
-- Responsive Design: Must be 100% mobile-first and fully responsive across tablets and desktops.
-- Dark/Light Mode Toggle: A switch to invert the Luminous Blue/White theme into a deep, sleek dark mode tailored for developers and night browsing.
-- User Dashboard: A preview of a clean user area where buyers can access their downloaded files and purchase history.
+    <!-- Hero Section -->
+    <section id="hero" class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden hero-gradient">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-medium backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        <span x-text="t('hero_badge')"></span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
+                        <span x-text="t('hero_title_1')"></span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-ice-light" x-text="t('hero_title_2')"></span>
+                    </h1>
+                    <p class="text-lg text-white/80 max-w-lg leading-relaxed" x-text="t('hero_desc')"></p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="px-8 py-4 rounded-xl bg-white text-luminous font-bold text-lg hover:scale-105 transition-all shadow-2xl shadow-black/20 animate-pulse-glow" x-text="t('hero_cta_1')"></button>
+                        <button class="px-8 py-4 rounded-xl bg-white/10 text-white font-semibold text-lg border border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all" x-text="t('hero_cta_2')"></button>
+                    </div>
+                    <div class="flex items-center gap-6 pt-4">
+                        <div class="flex -space-x-3 rtl:space-x-reverse">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 border-2 border-luminous flex items-center justify-center text-xs font-bold text-slate-600">JD</div>
+                            <div class="w-10 h-10 rounded-full bg-slate-300 border-2 border-luminous flex items-center justify-center text-xs font-bold text-slate-600">AK</div>
+                            <div class="w-10 h-10 rounded-full bg-slate-400 border-2 border-luminous flex items-center justify-center text-xs font-bold text-white">MR</div>
+                        </div>
+                        <div class="text-white/90 text-sm">
+                            <div class="flex text-yellow-400 mb-1">★★★★★ <span class="text-white/70 ms-1">4.9/5</span></div>
+                            <span class="text-white/60" x-text="t('hero_reviews')"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative hidden lg:block">
+                    <div class="absolute inset-0 bg-luminous/30 rounded-full blur-3xl animate-pulse"></div>
+                    <img src="https://image.qwenlm.ai/public_source/3d49649b-5623-4429-95ed-ef8e4e643343/176ab9ee5-d8f2-4085-9e65-8add7b776f9f.png" alt="Digital Products" class="relative rounded-3xl shadow-2xl animate-float border border-white/10">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Marquee -->
+    <section class="py-8 bg-slate-50 dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+        <div class="marquee-container">
+            <div class="marquee-content flex items-center gap-16 px-8">
+                <template x-for="i in 2">
+                    <div class="flex items-center gap-16 shrink-0">
+                        <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            <span class="font-bold text-lg">Apple</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M2.15 2.15v19.7h19.7V2.15H2.15zm17.7 17.7H4.15V4.15h15.7v15.7zM6.5 7.5h3v9h-3v-9zm4.5 0h3v9h-3v-9zm4.5 0h3v9h-3v-9z"/></svg>
+                            <span class="font-bold text-lg">Microsoft</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+                            <span class="font-bold text-lg">TikTok</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                            <span class="font-bold text-lg">Google</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M13.98 11.08c.02-.21.04-.42.04-.64 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c1.03 0 1.97-.39 2.68-1.03l2.13 2.13c-1.26 1.26-2.99 2.04-4.89 2.04-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7c0 .74-.12 1.45-.33 2.12l-2.63-1.62z"/></svg>
+                            <span class="font-bold text-lg">Amazon</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Statistics -->
+    <section id="stats" class="py-20 bg-white dark:bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4" x-text="t('stats_title')"></h2>
+                <p class="text-ice-dark dark:text-ice-light text-lg max-w-2xl mx-auto" x-text="t('stats_desc')"></p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-8 text-center hover:scale-105 transition-transform duration-300 shadow-xl">
+                    <div class="text-5xl font-bold text-luminous dark:text-ice-light mb-2" x-text="'$' + stats.budget.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US')"></div>
+                    <div class="text-slate-600 dark:text-slate-400 font-medium" x-text="t('stats_budget')"></div>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-center hover:scale-105 transition-transform duration-300 shadow-xl">
+                    <div class="text-5xl font-bold text-luminous dark:text-ice-light mb-2" x-text="stats.users.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US') + '+'"></div>
+                    <div class="text-slate-600 dark:text-slate-400 font-medium" x-text="t('stats_users')"></div>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-center hover:scale-105 transition-transform duration-300 shadow-xl">
+                    <div class="text-5xl font-bold text-luminous dark:text-ice-light mb-2" x-text="stats.projects.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US') + '+'"></div>
+                    <div class="text-slate-600 dark:text-slate-400 font-medium" x-text="t('stats_projects')"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section id="products" class="py-20 bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2" x-text="t('products_title')"></h2>
+                    <p class="text-slate-600 dark:text-slate-400" x-text="t('products_desc')"></p>
+                </div>
+                <button class="hidden sm:block text-luminous dark:text-ice font-semibold hover:underline" x-text="t('products_view_all')"></button>
+            </div>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <template x-for="product in products" :key="product.id">
+                    <div class="glass-card rounded-2xl overflow-hidden group hover:shadow-2xl hover:shadow-luminous/10 transition-all duration-300 hover:-translate-y-2">
+                        <div class="relative h-48 bg-gradient-to-br from-luminous/20 to-ice/20 dark:from-luminous/10 dark:to-ice/10 flex items-center justify-center overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-luminous to-ice opacity-10 group-hover:opacity-20 transition-opacity"></div>
+                            <span class="text-6xl font-bold text-luminous/30 dark:text-ice/30 group-hover:scale-110 transition-transform duration-500" x-text="product.icon"></span>
+                            <div class="absolute top-3 end-3 px-2 py-1 rounded-lg bg-white/90 dark:bg-slate-800/90 text-xs font-bold text-luminous dark:text-ice shadow-sm" x-text="product.category"></div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 dark:text-white mb-1 truncate" x-text="product.name"></h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-3 line-clamp-2" x-text="product.desc"></p>
+                            <div class="flex items-center gap-1 mb-4">
+                                <template x-for="i in 5">
+                                    <svg class="w-4 h-4" :class="i <= product.rating ? 'text-yellow-400' : 'text-slate-300 dark:text-slate-600'" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                </template>
+                                <span class="text-xs text-slate-500 dark:text-slate-400 ms-1" x-text="'(' + product.reviews + ')'"></span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xl font-bold text-luminous dark:text-ice" x-text="product.price"></span>
+                                <button @click="addToCart(product.name)" class="px-4 py-2 rounded-lg bg-luminous text-white text-sm font-semibold hover:bg-luminous-dark transition-colors shadow-md shadow-luminous/30" x-text="lang === 'ar' ? 'أضف للسلة' : 'Add to Cart'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Dashboard Preview -->
+    <section id="dashboard" class="py-20 bg-white dark:bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4" x-text="t('dashboard_title')"></h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto" x-text="t('dashboard_desc')"></p>
+            </div>
+            
+            <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl max-w-4xl mx-auto border border-slate-200 dark:border-slate-700">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-6 border-b border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-luminous to-ice flex items-center justify-center text-white font-bold text-lg">JD</div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 dark:text-white">John Doe</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400" x-text="lang === 'ar' ? 'عضو محترف منذ 2024' : 'Pro Member since 2024'"></p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button @click="dashboardTab = 'downloads'" :class="dashboardTab === 'downloads' ? 'bg-luminous text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'" class="px-4 py-2 rounded-lg text-sm font-semibold transition-colors" x-text="t('dashboard_downloads')"></button>
+                        <button @click="dashboardTab = 'history'" :class="dashboardTab === 'history' ? 'bg-luminous text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'" class="px-4 py-2 rounded-lg text-sm font-semibold transition-colors" x-text="t('dashboard_history')"></button>
+                    </div>
+                </div>
+
+                <div x-show="dashboardTab === 'downloads'" x-transition class="space-y-4">
+                    <template x-for="item in downloads" :key="item.id">
+                        <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-luminous/10 dark:bg-ice/10 flex items-center justify-center text-luminous dark:text-ice">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white text-sm" x-text="item.name"></h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400" x-text="item.size + ' • ' + item.date"></p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1.5 rounded-lg bg-luminous/10 dark:bg-ice/10 text-luminous dark:text-ice text-xs font-semibold hover:bg-luminous/20 dark:hover:bg-ice/20 transition-colors" x-text="lang === 'ar' ? 'تنزيل' : 'Download'"></button>
+                        </div>
+                    </template>
+                </div>
+
+                <div x-show="dashboardTab === 'history'" x-cloak x-transition class="space-y-4">
+                    <template x-for="item in history" :key="item.id">
+                        <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white text-sm" x-text="item.name"></h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400" x-text="item.date"></p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-slate-900 dark:text-white text-sm" x-text="item.amount"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Payments -->
+    <footer class="bg-slate-900 dark:bg-black text-white pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-9 h-9 bg-white rounded-lg flex items-center justify-center">
+                            <span class="text-slate-900 font-bold text-xl tracking-tighter">V</span>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight">Vault</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed" x-text="lang === 'ar' ? 'السوق الرائد للأصول الرقمية عالية الجودة. نمكن المبدعين حول العالم منذ عام 2020.' : 'The premier marketplace for high-quality digital assets. Empowering creators worldwide since 2020.'"></p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-ice-light" x-text="t('footer_products')"></h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'مجموعات واجهات المستخدم' : 'UI Kits'"></a></li>
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'القوالب' : 'Templates'"></a></li>
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'نماذج ثلاثية الأبعاد' : '3D Models'"></a></li>
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'الأيقونات' : 'Icons'"></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-ice-light" x-text="t('footer_company')"></h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'من نحن' : 'About Us'"></a></li>
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'الوظائف' : 'Careers'"></a></li>
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'المدونة' : 'Blog'"></a></li>
+                        <li><a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'اتصل بنا' : 'Contact'"></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-ice-light" x-text="t('footer_secure')"></h4>
+                    <div class="flex flex-wrap gap-3">
+                        <div class="w-12 h-8 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" title="PayPal">
+                            <svg class="w-8 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill="#003087" d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944 3.72a.77.77 0 01.757-.629h6.818c2.73 0 4.744.572 5.69 1.79.44.566.72 1.16.83 1.79.11.63.07 1.39-.12 2.27l-.01.07v.58l.45.26c.38.2.68.44.92.74.46.59.76 1.34.89 2.23.13.91.06 1.98-.21 3.17-.27 1.21-.7 2.27-1.28 3.15-.54.82-1.23 1.47-2.05 1.93-.78.44-1.7.66-2.74.66h-.69c-.49 0-.98.18-1.36.51-.38.33-.65.78-.77 1.28l-.05.22-1.02 6.48-.05.27c-.03.21-.11.4-.24.55a.65.65 0 01-.49.22H7.076z"/></svg>
+                        </div>
+                        <div class="w-12 h-8 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" title="Visa">
+                            <svg class="w-8 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill="#1A1F71" d="M9.15 16.28h-1.44l.9-5.43h1.44l-.9 5.43zm6.69-5.31c-.28-.11-.73-.23-1.28-.23-1.41 0-2.4.72-2.41 1.75-.01.76.71 1.19 1.25 1.45.56.26.75.43.75.66 0 .36-.45.52-.86.52-.57 0-.88-.08-1.35-.28l-.19-.09-.2 1.21c.34.15.96.28 1.61.29 1.5 0 2.48-.71 2.49-1.81.01-.6-.37-1.06-1.19-1.44-.5-.24-.8-.4-.8-.64 0-.22.25-.45.81-.45.46-.01.8.09 1.06.2l.13.06.19-1.15zm2.36-.12h-1.11c-.34 0-.6.09-.75.44l-2.13 4.99h1.51l.3-.8h1.84l.17.8h1.33l-1.16-5.43zm-1.77 3.52l.78-2.07.43 2.07h-1.21zM7.04 10.85L5.6 16.28H4.07l-.9-4.33c-.05-.27-.1-.37-.26-.48-.26-.17-.69-.33-1.07-.43l.06-.33h1.85c.41 0 .78.27.88.73l.81 4.16 2.02-5.35h1.58z"/></svg>
+                        </div>
+                        <div class="w-12 h-8 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" title="MasterCard">
+                            <svg class="w-8 h-5" viewBox="0 0 24 24"><circle cx="9" cy="12" r="6" fill="#EB001B"/><circle cx="15" cy="12" r="6" fill="#F79E1B"/><path d="M12 7.5a6 6 0 010 9 6 6 0 010-9z" fill="#FF5F00"/></svg>
+                        </div>
+                        <div class="w-12 h-8 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" title="Google Pay">
+                            <svg class="w-8 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill="#4285F4" d="M10.5 11.5v2.5h3.5c-.15.85-.95 2.5-3.5 2.5-2.1 0-3.85-1.75-3.85-3.9s1.75-3.9 3.85-3.9c1.2 0 2 .5 2.45.95l1.7-1.65c-1.1-1.05-2.55-1.7-4.15-1.7-3.45 0-6.25 2.8-6.25 6.25s2.8 6.25 6.25 6.25c3.6 0 6-2.55 6-6.1 0-.4-.05-.7-.1-1h-5.9z"/><path fill="#34A853" d="M16.5 11.5h-1.5v1.5h1.5v-1.5z"/><path fill="#FBBC05" d="M18 11.5c0-.4-.05-.7-.1-1h-1.4v1.5h1.5c-.05.35-.15.65-.3.9l1.2.95c.7-.65 1.1-1.6 1.1-2.85 0-.4-.05-.7-.1-1h-1.9v1.5z"/><path fill="#EA4335" d="M18 15.5c-.3.9-.95 1.65-1.75 2.15l1.2.95c.85-.8 1.45-2 1.55-3.6h-1.5v.5z"/></svg>
+                        </div>
+                        <div class="w-12 h-8 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" title="Apple Pay">
+                            <svg class="w-8 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill="#FFF" d="M15.5 14.5c-.05-1.5 1.23-2.22 1.28-2.25-.7-1.02-1.78-1.16-2.16-1.18-.92-.09-1.8.54-2.27.54-.47 0-1.19-.52-1.96-.51-1.01.01-1.94.59-2.46 1.49-1.05 1.82-.27 4.52.75 6 .5.73 1.1 1.55 1.88 1.52.76-.03 1.05-.49 1.98-.49.93 0 1.19.49 2 .48.82-.01 1.34-.74 1.83-1.47.58-.85.82-1.67.83-1.71-.02-.01-1.59-.61-1.63-2.42zM13.3 9.77c.42-.51.7-1.22.62-1.93-.6.02-1.33.4-1.76.9-.39.45-.73 1.17-.64 1.86.67.05 1.36-.34 1.78-.83z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4" x-text="t('footer_secure_desc')"></p>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-500" x-text="t('footer_rights')"></p>
+                <div class="flex gap-6 text-sm text-slate-500">
+                    <a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'الخصوصية' : 'Privacy'"></a>
+                    <a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'الشروط' : 'Terms'"></a>
+                    <a href="#" class="hover:text-white transition-colors" x-text="lang === 'ar' ? 'ملفات تعريف الارتباط' : 'Cookies'"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Authentication Modal -->
+    <div x-show="authModal" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-4" x-transition.opacity>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="authModal = false"></div>
+        <div class="relative glass-card rounded-3xl p-8 w-full max-w-md shadow-2xl" x-transition.scale>
+            <button @click="authModal = false" class="absolute top-4 end-4 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <span class="text-white font-bold text-2xl tracking-tighter">V</span>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white" x-text="authTab === 'login' ? t('auth_welcome') : t('auth_create')"></h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1" x-text="authTab === 'login' ? t('auth_login_desc') : t('auth_signup_desc')"></p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl mb-6">
+                <button @click="authTab = 'login'" :class="authTab === 'login' ? 'bg-white dark:bg-slate-700 shadow-sm text-luminous dark:text-ice' : 'text-slate-500'" class="flex-1 py-2 rounded-lg text-sm font-semibold transition-all" x-text="t('auth_login')"></button>
+                <button @click="authTab = 'signup'" :class="authTab === 'signup' ? 'bg-white dark:bg-slate-700 shadow-sm text-luminous dark:text-ice' : 'text-slate-500'" class="flex-1 py-2 rounded-lg text-sm font-semibold transition-all" x-text="t('auth_signup')"></button>
+            </div>
+
+            <form @submit.prevent="authModal = false" class="space-y-4">
+                <div x-show="authTab === 'signup'" x-transition class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1" x-text="t('auth_first_name')"></label>
+                        <input type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:border-luminous focus:ring-2 focus:ring-luminous/20 transition-all" placeholder="John">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1" x-text="t('auth_last_name')"></label>
+                        <input type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:border-luminous focus:ring-2 focus:ring-luminous/20 transition-all" placeholder="Doe">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1" x-text="t('auth_email')"></label>
+                    <input type="email" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:border-luminous focus:ring-2 focus:ring-luminous/20 transition-all" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1" x-text="t('auth_password')"></label>
+                    <input type="password" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:border-luminous focus:ring-2 focus:ring-luminous/20 transition-all" placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="w-full py-3 rounded-xl bg-luminous text-white font-bold hover:bg-luminous-dark transition-all shadow-lg shadow-luminous/30 hover:shadow-luminous/50" x-text="authTab === 'login' ? t('auth_submit_login') : t('auth_submit_signup')"></button>
+            </form>
+
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
+                <div class="relative flex justify-center text-xs"><span class="px-2 bg-white dark:bg-slate-900 text-slate-500" x-text="t('auth_or')"></span></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+                <button class="flex items-center justify-center py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                </button>
+                <button class="flex items-center justify-center py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </button>
+                <button class="flex items-center justify-center py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div x-show="toast.show" x-cloak x-transition class="fixed bottom-6 end-6 z-[110] glass-card rounded-xl p-4 shadow-2xl flex items-center gap-3 border-s-4 border-luminous">
+        <div class="w-8 h-8 rounded-full bg-luminous/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-luminous" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm" x-text="t('toast_title')"></h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400" x-text="toast.message"></p>
+        </div>
+    </div>
+
+    <script>
+        function appData() {
+            return {
+                lang: 'en',
+                darkMode: false,
+                authModal: false,
+                authTab: 'login',
+                cartCount: 0,
+                dashboardTab: 'downloads',
+                toast: { show: false, message: '' },
+                stats: { budget: 50000, users: 20000, projects: 200 },
+                products: [
+                    { id: 1, name: 'Ultimate UI Kit Pro', desc: '500+ components for Figma and Sketch. Fully customizable.', price: '$49', rating: 5, reviews: 128, category: 'UI Kit', icon: '◆' },
+                    { id: 2, name: '3D Icon Pack', desc: '200 high-resolution 3D icons in multiple formats.', price: '$29', rating: 5, reviews: 84, category: 'Icons', icon: '✦' },
+                    { id: 3, name: 'SaaS Dashboard Template', desc: 'React & Tailwind admin dashboard with dark mode.', price: '$79', rating: 4, reviews: 56, category: 'Template', icon: '▣' },
+                    { id: 4, name: 'Motion Graphics Pack', desc: '100+ After Effects templates for social media.', price: '$39', rating: 5, reviews: 203, category: 'Video', icon: '▶' },
+                ],
+                downloads: [
+                    { id: 1, name: 'Ultimate UI Kit Pro v2.1', size: '145 MB', date: 'Jun 8, 2026' },
+                    { id: 2, name: '3D Icon Pack - Business', size: '82 MB', date: 'Jun 5, 2026' },
+                    { id: 3, name: 'SaaS Dashboard Template', size: '24 MB', date: 'May 28, 2026' },
+                ],
+                history: [
+                    { id: 1, name: 'Ultimate UI Kit Pro', date: 'Jun 8, 2026', amount: '$49.00' },
+                    { id: 2, name: '3D Icon Pack', date: 'Jun 5, 2026', amount: '$29.00' },
+                    { id: 3, name: 'SaaS Dashboard Template', date: 'May 28, 2026', amount: '$79.00' },
+                ],
+                translations: {
+                    en: {
+                        page_title: 'Vault - Premium Digital Products',
+                        nav_products: 'Products', nav_stats: 'Stats', nav_dashboard: 'Dashboard', nav_login: 'Sign In',
+                        hero_badge: 'Trusted by 20,000+ creators worldwide',
+                        hero_title_1: 'Premium Digital Assets for', hero_title_2: 'Modern Creators',
+                        hero_desc: 'Discover high-quality templates, UI kits, 3D models, and digital tools. Instant downloads, lifetime access, and commercial licenses included.',
+                        hero_cta_1: 'Explore Products', hero_cta_2: 'View Dashboard', hero_reviews: 'from 2,000+ reviews',
+                        stats_title: 'Trusted by Creators Worldwide',
+                        stats_desc: 'Our platform powers digital commerce for thousands of creators and businesses across 90+ countries.',
+                        stats_budget: 'Budget / Volume Processed', stats_users: 'Active Users', stats_projects: 'Premium Projects',
+                        products_title: 'Featured Digital Products', products_desc: 'Handpicked premium assets for your next project.', products_view_all: 'View All →',
+                        dashboard_title: 'Your Personal Dashboard', dashboard_desc: 'Manage your downloads, licenses, and purchase history all in one place.',
+                        dashboard_downloads: 'Downloads', dashboard_history: 'History',
+                        footer_products: 'Products', footer_company: 'Company', footer_secure: 'Secure Payments',
+                        footer_secure_desc: '256-bit SSL encryption. Your data is always safe.',
+                        footer_rights: '© 2026 Vault Digital. All rights reserved.',
+                        auth_welcome: 'Welcome Back', auth_create: 'Create Account',
+                        auth_login_desc: 'Sign in to access your digital assets', auth_signup_desc: 'Join 20,000+ creators today',
+                        auth_login: 'Login', auth_signup: 'Sign Up',
+                        auth_first_name: 'First Name', auth_last_name: 'Last Name', auth_email: 'Email', auth_password: 'Password',
+                        auth_submit_login: 'Sign In', auth_submit_signup: 'Create Account', auth_or: 'Or continue with',
+                        toast_title: 'Added to Cart', toast_added: 'Product added to your cart successfully.'
+                    },
+                    ar: {
+                        page_title: 'فولت - منتجات رقمية متميزة',
+                        nav_products: 'المنتجات', nav_stats: 'الإحصائيات', nav_dashboard: 'لوحة التحكم', nav_login: 'تسجيل الدخول',
+                        hero_badge: 'موثوق من قبل أكثر من 20,000 مبدع حول العالم',
+                        hero_title_1: 'أصول رقمية متميزة', hero_title_2: 'للمبدعين العصريين',
+                        hero_desc: 'اكتشف قوالب عالية الجودة، مجموعات واجهات المستخدم، نماذج ثلاثية الأبعاد، وأدوات رقمية. تنزيلات فورية، وصول مدى الحياة، وتراخيص تجارية متضمنة.',
+                        hero_cta_1: 'استكشف المنتجات', hero_cta_2: 'عرض لوحة التحكم', hero_reviews: 'من أكثر من 2,000 تقييم',
+                        stats_title: 'موثوق من قبل المبدعين حول العالم',
+                        stats_desc: 'منصتنا تدعم التجارة الرقمية لآلاف المبدعين والشركات في أكثر من 90 دولة.',
+                        stats_budget: 'الميزانية / حجم المعاملات', stats_users: 'المستخدمون النشطون', stats_projects: 'المشاريع المتميزة',
+                        products_title: 'منتجات رقمية مميزة', products_desc: 'أصول متميزة مختارة بعناية لمشروعك القادم.', products_view_all: 'عرض الكل ←',
+                        dashboard_title: 'لوحة التحكم الشخصية', dashboard_desc: 'أدر تنزيلاتك، تراخيصك، وسجل مشترياتك في مكان واحد.',
+                        dashboard_downloads: 'التنزيلات', dashboard_history: 'السجل',
+                        footer_products: 'المنتجات', footer_company: 'الشركة', footer_secure: 'مدفوعات آمنة',
+                        footer_secure_desc: 'تشفير SSL بقوة 256 بت. بياناتك في أمان دائم.',
+                        footer_rights: '© 2026 فولت ديجيتال. جميع الحقوق محفوظة.',
+                        auth_welcome: 'مرحباً بعودتك', auth_create: 'إنشاء حساب',
+                        auth_login_desc: 'سجل الدخول للوصول إلى أصولك الرقمية', auth_signup_desc: 'انضم إلى أكثر من 20,000 مبدع اليوم',
+                        auth_login: 'تسجيل الدخول', auth_signup: 'إنشاء حساب',
+                        auth_first_name: 'الاسم الأول', auth_last_name: 'اسم العائلة', auth_email: 'البريد الإلكتروني', auth_password: 'كلمة المرور',
+                        auth_submit_login: 'تسجيل الدخول', auth_submit_signup: 'إنشاء حساب', auth_or: 'أو المتابعة باستخدام',
+                        toast_title: 'تمت الإضافة للسلة', toast_added: 'تمت إضافة المنتج إلى سلة التسوق بنجاح.'
+                    }
+                },
+                t(key) {
+                    return this.translations[this.lang][key] || key;
+                },
+                toggleDarkMode() {
+                    this.darkMode = !this.darkMode;
+                },
+                openAuthModal() {
+                    this.authModal = true;
+                },
+                addToCart(productName) {
+                    this.cartCount++;
+                    this.toast.message = this.lang === 'ar' ? `تمت إضافة "${productName}" إلى السلة.` : `"${productName}" added to your cart.`;
+                    this.toast.show = true;
+                    setTimeout(() => { this.toast.show = false; }, 3000);
+                },
+                scrollTo(id) {
+                    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                },
+                init() {
+                    // Live counter: starts at 20,000 and increments by 1 every 30 seconds
+                    setInterval(() => {
+                        this.stats.users += 1;
+                    }, 30000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
+
