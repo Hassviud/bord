@@ -768,7 +768,6 @@
     color: var(--gray-500);
   }
 
-  /* ============ QUICK ACTIONS (below chart) ============ */
   .quick-actions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1137,7 +1136,6 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   }
 
-  /* Form */
   .form-group { margin-bottom: 20px; }
   .form-label {
     display: block;
@@ -1158,17 +1156,9 @@
     color: var(--black);
     transition: border-color 0.2s;
   }
-  .form-input:focus {
-    outline: none;
-    border-color: var(--black);
-  }
-  .form-hint {
-    font-size: 11px;
-    color: var(--gray-500);
-    margin-top: 6px;
-  }
+  .form-input:focus { outline: none; border-color: var(--black); }
+  .form-hint { font-size: 11px; color: var(--gray-500); margin-top: 6px; }
 
-  /* Crypto selector */
   .crypto-selector {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1188,20 +1178,11 @@
     font-family: inherit;
   }
   .crypto-option:hover { border-color: var(--gray-400); }
-  .crypto-option.selected {
-    border-color: var(--black);
-    background: var(--gray-50);
-  }
-  .crypto-option-icon {
-    width: 32px; height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .crypto-option.selected { border-color: var(--black); background: var(--gray-50); }
+  .crypto-option-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
   .crypto-option-name { font-size: 12px; font-weight: 600; }
   .crypto-option-ticker { font-size: 10px; color: var(--gray-500); }
 
-  /* Deposit address box */
   .address-box {
     background: var(--gray-50);
     border: 1px solid var(--gray-200);
@@ -1234,21 +1215,9 @@
   }
   .copy-btn:hover { background: var(--gray-800); }
 
-  /* Settings page */
-  .settings-section {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    margin-bottom: 20px;
-  }
-  .settings-section-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .settings-section-title {
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
-  }
+  .settings-section { background: var(--white); border: 1px solid var(--gray-200); margin-bottom: 20px; }
+  .settings-section-header { padding: 20px 24px; border-bottom: 1px solid var(--gray-200); }
+  .settings-section-title { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; }
   .settings-section-title small {
     display: block;
     font-size: 11px;
@@ -1258,12 +1227,7 @@
   }
   .settings-section-body { padding: 24px; }
 
-  .avatar-upload {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 24px;
-  }
+  .avatar-upload { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
   .avatar-preview {
     width: 80px; height: 80px;
     background: var(--gray-100);
@@ -1375,6 +1339,140 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* ============ BRAND MODAL (Search) ============ */
+  .brand-modal {
+    max-width: 480px;
+    padding: 0;
+    overflow: hidden;
+  }
+  .brand-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--black);
+    z-index: 10;
+  }
+  .brand-modal-close:hover {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+  .brand-showcase {
+    background: var(--black);
+    padding: 56px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .brand-showcase::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(255,255,255,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .brand-logo-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    animation: brandFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes brandFadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .brand-logo-big {
+    width: 120px;
+    height: 120px;
+    background: var(--white);
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 64px;
+    letter-spacing: -3px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(255,255,255,0.15);
+  }
+  .brand-logo-big::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    pointer-events: none;
+  }
+  .brand-wordmark {
+    color: var(--white);
+    text-align: center;
+  }
+  .brand-name {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .brand-tagline {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .brand-info {
+    padding: 28px 40px;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+  }
+  .brand-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .brand-info-row:last-child { border-bottom: none; }
+  .brand-info-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray-500);
+  }
+  .brand-info-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.2px;
+  }
+  .brand-footer {
+    padding: 16px 40px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    text-align: center;
+    font-size: 11px;
+    color: var(--gray-500);
+    letter-spacing: 0.5px;
+  }
+
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
@@ -1416,6 +1514,11 @@
     .hero { padding: 130px 24px 70px; }
     .features, .payment-banner, .footer { padding-left: 24px; padding-right: 24px; }
     .toast { right: 16px; left: 16px; max-width: none; }
+
+    .brand-showcase { padding: 40px 24px; }
+    .brand-logo-big { width: 96px; height: 96px; font-size: 48px; }
+    .brand-name { font-size: 26px; }
+    .brand-info, .brand-footer { padding-left: 24px; padding-right: 24px; }
   }
   @media (max-width: 600px) {
     .p2p-table th:nth-child(2),
@@ -1760,7 +1863,7 @@
           </svg>
           <span class="dot"></span>
         </button>
-        <button class="icon-btn" aria-label="Search">
+        <button class="icon-btn" aria-label="About Veto Cash" onclick="openBrandModal()" title="About Veto Cash">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
@@ -2469,6 +2572,50 @@
   </div>
 </div>
 
+<!-- ============ BRAND / LOGO MODAL ============ -->
+<div class="modal-overlay" id="brandModal">
+  <div class="modal brand-modal">
+    <button class="brand-modal-close" onclick="closeBrandModal()" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="brand-showcase">
+      <div class="brand-logo-wrap">
+        <div class="brand-logo-big">V</div>
+        <div class="brand-wordmark">
+          <div class="brand-name">Veto Cash</div>
+          <div class="brand-tagline">Rare Digital Assets · Est. 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-info">
+      <div class="brand-info-row">
+        <span class="brand-info-label">Platform</span>
+        <span class="brand-info-value">Veto Financial 2026</span>
+      </div>
+      <div class="brand-info-row">
+        <span class="brand-info-label">Commission</span>
+        <span class="brand-info-value">0.5% Flat Rate</span>
+      </div>
+      <div class="brand-info-row">
+        <span class="brand-info-label">Trading</span>
+        <span class="brand-info-value">P2P · Ultra-Rare Assets</span>
+      </div>
+      <div class="brand-info-row">
+        <span class="brand-info-label">Status</span>
+        <span class="brand-info-value">● Live · Global</span>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      © 2026 Veto Financial Company · All rights reserved
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast">
   <div class="toast-avatar" id="toastAvatar">V</div>
@@ -2488,7 +2635,7 @@
 
   // ============ APP STATE ============
   const appState = {
-    balance: 0,         // USDT balance
+    balance: 0,
     btcBalance: 0,
     ethBalance: 0,
     inOrders: 0,
@@ -2576,7 +2723,6 @@
     }, 1800);
   }
 
-  // Initialize new user state (all zeros)
   function initNewUser() {
     appState.balance = 0;
     appState.btcBalance = 0;
@@ -2637,7 +2783,6 @@
         : initial;
     }
 
-    // Settings form
     const nameInput = document.getElementById('settingsName');
     const emailInput = document.getElementById('settingsEmail');
     const bioInput = document.getElementById('settingsBio');
@@ -2648,7 +2793,6 @@
       document.getElementById('bioCount').textContent = (appState.settings.bio || '').length;
     }
 
-    // Account info
     if (currentUser.sub) {
       document.getElementById('accountId').textContent = 'VC-' + currentUser.sub.slice(-6).toUpperCase();
     }
@@ -2685,27 +2829,44 @@
     restoreSession();
   });
 
+  // ============ BRAND MODAL ============
+  function openBrandModal() {
+    document.getElementById('brandModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBrandModal() {
+    document.getElementById('brandModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('brandModal').addEventListener('click', (e) => {
+    if (e.target.id === 'brandModal') closeBrandModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeBrandModal();
+      closeDepositModal();
+    }
+  });
+
   // ============ NAVIGATION ============
   function navigateTo(page) {
-    // Hide all views
     document.querySelectorAll('.view').forEach(v => {
       v.style.display = 'none';
       v.classList.remove('active');
     });
 
-    // Show target view
     const target = document.getElementById('view-' + page);
     if (target) {
       target.style.display = 'block';
       target.classList.add('active');
     }
 
-    // Update nav items
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     const navItem = document.querySelector(`.nav-item[data-page="${page}"]`);
     if (navItem) navItem.classList.add('active');
 
-    // Update title
     const titles = {
       dashboard: 'Dashboard',
       wallet: 'My Wallet',
@@ -2716,14 +2877,11 @@
     };
     document.getElementById('pageTitleText').textContent = titles[page] || 'Dashboard';
 
-    // Close mobile menu
     document.getElementById('sidebar').classList.remove('open');
     document.getElementById('overlay').classList.remove('active');
 
-    // Special: deposit opens modal
     if (page === 'deposit') {
       openDepositModal();
-      // Keep dashboard visible behind
       document.getElementById('view-dashboard').style.display = 'block';
       document.getElementById('view-dashboard').classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -2734,7 +2892,6 @@
     window.scrollTo(0, 0);
   }
 
-  // Nav item click handlers
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
@@ -2743,7 +2900,6 @@
     });
   });
 
-  // Mobile menu
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
   const menuToggle = document.getElementById('menuToggle');
@@ -2758,7 +2914,6 @@
 
   // ============ DISPLAY UPDATES ============
   function updateAllDisplays() {
-    // Wallet
     const balanceEls = document.querySelectorAll('#walletBalance, .wallet-balance-display');
     balanceEls.forEach(el => el.textContent = formatNum(appState.balance, 2));
 
@@ -2769,7 +2924,6 @@
     const totalEls = document.querySelectorAll('#walletTotal, .wallet-total-display');
     totalEls.forEach(el => el.textContent = '$' + formatNum(totalValue, 2));
 
-    // Holdings
     const usdtH = document.querySelector('.holdings-usdt');
     const btcH = document.querySelector('.holdings-btc');
     const ethH = document.querySelector('.holdings-eth');
@@ -2777,7 +2931,6 @@
     if (btcH) btcH.textContent = formatNum(appState.btcBalance, 6);
     if (ethH) ethH.textContent = formatNum(appState.ethBalance, 6);
 
-    // Portfolio
     const portfolioEl = document.getElementById('portfolioValue');
     portfolioEl.textContent = '$' + formatNum(totalValue, 2);
 
@@ -2804,20 +2957,15 @@
       changeEl.classList.remove('active');
     }
 
-    // Chart
     updateChart();
 
-    // Veto Points
     document.getElementById('vetoPoints').textContent = appState.vetoPoints.toLocaleString();
 
-    // Withdraw available
     const withdrawAvail = document.getElementById('withdrawAvailable');
     if (withdrawAvail) withdrawAvail.textContent = formatNum(appState.balance, 2) + ' USDT';
 
-    // Orders badge
     document.getElementById('ordersBadge').textContent = appState.orders.length;
 
-    // Transactions
     renderTransactions();
     renderOrders();
   }
@@ -2829,7 +2977,6 @@
     });
   }
 
-  // ============ CHART ============
   function updateChart() {
     const chartPath = document.getElementById('chartPath');
     const chartArea = document.getElementById('chartArea');
@@ -2863,14 +3010,12 @@
     chartPath.setAttribute('d', pathD);
     chartArea.setAttribute('d', areaD);
 
-    // Update Y labels
     document.getElementById('yLabel1').textContent = '$' + formatNum(max, 0);
     document.getElementById('yLabel2').textContent = '$' + formatNum(min + range * 0.66, 0);
     document.getElementById('yLabel3').textContent = '$' + formatNum(min + range * 0.33, 0);
     document.getElementById('yLabel4').textContent = '$' + formatNum(min, 0);
   }
 
-  // ============ TRANSACTIONS ============
   function addTransaction(type, title, amount, status = 'completed') {
     const now = new Date();
     const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -2968,7 +3113,6 @@
     }
   }
 
-  // ============ ORDERS ============
   function renderOrders() {
     const list = document.getElementById('ordersList');
     const empty = document.getElementById('ordersEmpty');
@@ -3015,7 +3159,6 @@
     `;
   }
 
-  // ============ BUY ASSET ============
   function buyAsset(btn, assetName, price) {
     if (appState.balance < price) {
       showToast({ name: 'Insufficient Funds', email: `Need ${formatNum(price, 2)} USDT` }, false);
@@ -3028,11 +3171,9 @@
     btn.disabled = true;
 
     setTimeout(() => {
-      // Deduct balance
       appState.balance -= price;
       appState.inOrders += price;
 
-      // Add order
       const now = new Date();
       appState.orders.unshift({
         id: Math.floor(Math.random() * 900000 + 100000),
@@ -3042,18 +3183,14 @@
         time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
       });
 
-      // Record transaction
       addTransaction('out', `P2P Purchase · ${assetName}`, -price, 'completed');
 
-      // Update portfolio
       const totalValue = appState.balance + appState.btcBalance * 98000 + appState.ethBalance * 3800;
       appState.portfolioHistory.push(totalValue);
       if (appState.portfolioHistory.length > 30) appState.portfolioHistory.shift();
 
-      // Award Veto Points (1 point per $100 traded)
       appState.vetoPoints += Math.floor(price / 100);
 
-      // After 2s, complete the order
       setTimeout(() => {
         appState.inOrders = Math.max(0, appState.inOrders - price);
         updateAllDisplays();
@@ -3074,7 +3211,6 @@
     }, 1000);
   }
 
-  // ============ DEPOSIT MODAL ============
   function openDepositModal() {
     document.getElementById('depositModal').classList.add('show');
     switchDepositTab('deposit');
@@ -3090,7 +3226,6 @@
     document.getElementById('withdrawTab').style.display = tab === 'withdraw' ? 'block' : 'none';
   }
 
-  // Crypto selector
   const addresses = {
     USDT: 'TVN5qwxP9mKz3FhR7jLxYc2BnV8WdE4pQs',
     BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
@@ -3138,12 +3273,10 @@
     appState.balance += amount;
     addTransaction('in', `Deposit · ${selectedCrypto}`, amount, 'completed');
 
-    // Update portfolio
     const totalValue = appState.balance + appState.btcBalance * 98000 + appState.ethBalance * 3800;
     appState.portfolioHistory.push(totalValue);
     if (appState.portfolioHistory.length > 30) appState.portfolioHistory.shift();
 
-    // Award Veto Points
     appState.vetoPoints += Math.floor(amount / 100);
 
     updateAllDisplays();
@@ -3186,7 +3319,6 @@
     showToast({ name: 'Withdrawal Requested', email: `${formatNum(net, 2)} USDT · Pending` }, true);
   }
 
-  // ============ SETTINGS ============
   document.getElementById('avatarInput').addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -3260,7 +3392,6 @@
     setTimeout(() => banner.classList.remove('show'), 3000);
   }
 
-  // ============ TOAST ============
   let toastTimer;
   function showToast(user, success) {
     const toast = document.getElementById('toast');
@@ -3285,12 +3416,10 @@
     document.getElementById('toast').classList.remove('show');
   }
 
-  // Close modal on overlay click
   document.getElementById('depositModal').addEventListener('click', (e) => {
     if (e.target.id === 'depositModal') closeDepositModal();
   });
 
-  // Time filter
   document.querySelectorAll('.time-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
@@ -3298,7 +3427,6 @@
     });
   });
 
-  // Veto points live tick (only if user has activity)
   setInterval(() => {
     if (document.getElementById('dashboardPage').classList.contains('active') && appState.vetoPoints > 0) {
       const delta = Math.floor(Math.random() * 3);
@@ -3308,7 +3436,6 @@
     }
   }, 5000);
 
-  // Landing counters
   function formatLandingNumber(n) {
     if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
     if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
@@ -3367,6 +3494,4 @@
 
 </body>
 </html>
-
-
 
