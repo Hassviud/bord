@@ -1,0 +1,6 @@
+{
+  "name": "Veto",
+  "description": "Veto is a premium, ultra-modern SaaS platform for e-commerce business management, featuring intelligent automated AI customer support, messaging integration, and tasks management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
